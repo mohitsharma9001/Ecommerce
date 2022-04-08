@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<style>
+#container{
+    width: 300px;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    padding: 14px;
+    border-radius: 5px;
+    margin-top: 10px;
+    
+}
+#form{
+    display: flex;
+    flex-direction: column;
+}
+#container>h2{
+    margin-top: -1px;
+    margin-bottom: -2px;
+}
+
+#form>label{
+    margin-top: 24px;
+}
+#form>input:last-child{
+    margin-top: 18px;
+    background-color: rgb(224, 202, 82);
+    border: 1px;
+    padding: 4px;
+}
+#form>input{
+    padding: 3px;
+    border-radius: 3px;
+}
+</style>
+<body>
+    <div id="container">
+        <h2>Login</h2>
+
+        <form action="" id="form">
+            <label for="">Email</label>
+            <input type="email" id="email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    
+</body>
+
+<script>
+    document.querySelector("#form").addEventListener("submit",loginFunc)
+
+    var userDetails=JSON.parse(localStorage.getItem("userDetail"));
+    function loginFunc()
+    {
+        event.preventDefault();
+
+        var enteredEmail=document.querySelector("#email").value;
+        var enteredPassword=document.querySelector("#password").value;
+       
+        var flag=false;
+        userDetails.forEach(function(user)
+        {
+            if(user.email==enteredEmail && user.password==enteredPassword && !flag)
+            {
+                flag=true;
+                alert("Login Successfull")
+                window.location.href="Home.html";
+
+            }
+        })
+
+        if(!flag)
+        {
+            alert("Invalid Email or Password")
+            window.location.reload();
+        }
+    }
+</script>
+</html>
