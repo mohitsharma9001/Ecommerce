@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#container{
+    display: grid;
+    height: auto;
+    width: 25%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: auto;
+    margin-top: 100px;
+}
+#btn{
+    margin-left: 30px;
+    padding: 5px 50px 5px 50px;
+    background-color: teal;
+}
+form{
+    padding: 40px;
+    padding-left: 50px;
+}
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center; margin-top: 50px; color: teal;">Varify your payment method</h2>
+    <div id="container">
+        <form >
+            
+            <p style="color: rgb(239, 154, 49);">Account no : xxxx xxxx xxxx 5665</p>
+            <p style="color: rgb(239, 154, 49);">Otp sent to your mobile no: xxxxxxxx03</p>
+            <label for="">Fill otp</label><br><br>
+            <input type="number" id="otp" placeholder="Enter your otp"><br><br>
+            <button id="btn">Pay</button>
+        </form>
+        
+    </div>
+</body>
+<script>
+    document.querySelector("button").addEventListener('click',function(){
+        event.preventDefault()
+   var otp = document.querySelector('#otp').value;
+
+   if(otp == 5665){
+       alert('!! Payment Successfull')
+       window.location.href="Home.html"
+   }else{
+       alert('!! Please fill right otp')
+   }
+    });
+
+    
+      
+    
+</script>
+</html>

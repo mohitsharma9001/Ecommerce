@@ -6,17 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+ 
+  #check{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 20px;
+    
+   }
+   .box{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    text-align: center;
+    /* border-radius: 15px; */
+   }
+   .box:hover{
+    cursor: pointer;
+            background-color: rgb(208, 208, 245);
+    border: 1px solid rgb(215, 215, 238);
+    border-radius: 10px;
+   }
+   .box>button{
+       background-color: rgb(246, 189, 119);
+       cursor: pointer;
+       padding: 5px 20px 5px 20px;
+   }
+   .box>img{
+       width: 100%;
+       height: 65%;
+       border-radius: 10px;
+   }
+  #parent{
+      display: flex;
+      justify-content: space-around;
+      width: 30%;
+      height: auto;
+       margin: auto;
+       gap: 50px;
+  }
+  #child{
+      border: 1px solid black;
+      height: 200px;
+      width: 300px;
+  }
+  #child2{
+      border: 1px solid black;
+      height: 150px;
+      width: 300px;
+      
+  }
+  #child>a{
+    text-align: center;  
+    
+}
+
+</style>
 <body>
+
     <div id="parent">
-        <p></p>
-    <p id="price"></p>
-    <button>Checkout</button>
+      <div id="child">  <p></p>
+        <p id="price"></p>
+        </div>
+      <div id="child2">
+          <h3>Coopan code</h3>
+          <input type="text" placeholder="Enter your coopen code" id="code"><br><br>
+          <button > <a href="checkout.html">Checkout</a> </button>
+      </div>
     </div>
-    
-    
+      <br><br>
     <div id="card">
-        <div id="check"></div>
-    </div>
+            <div id="check">
+
+            </div>
+        </div>
+
+      
+   
+    
     
     
 </body>
@@ -24,14 +89,13 @@
     var cartData = JSON.parse(localStorage.getItem('cartData'));
 
     
+   
     var totalSum = cartData.reduce(function(sum,ele,index,arr){
     return sum+ Number(ele.price);
     }, 0);
-
-    
     var totalItems = cartData.length;
     document.querySelector('p').innerText = 'You have ' + " " + totalItems + " " + "items" + " "+ "in your cart "  
-   document.querySelector('#price').innerText = "Price is"+" "+ totalSum
+   document.querySelector('#price').innerText = "Price is:"+" "+ totalSum
 
     cartData.forEach((cartItem,index) => {
          var box= document.createElement('div');

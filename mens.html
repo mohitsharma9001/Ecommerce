@@ -7,29 +7,72 @@
     <title>Document</title>
 </head>
 <style>
-    body{
+
+h1{
+        margin-top: 10px;
+        margin-left: 20px;
+        color: rgb(246, 190, 121);
+    }
+    #navBar{
+        display: flex;
+        justify-content: space-around;
+        background-color: rgb(244, 195, 136);
+        text-decoration: wavy;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+    #navBar a:hover {
+           color: rgb(151, 205, 220);
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        #navBar a {
+            cursor: pointer;
+        }
+        #welcome{
+        margin-top: 100px;
+        text-align: center;
+        color: black;
+        }
+        #welcome:hover{
+            cursor: pointer;
+         text-decoration: overline;
+         text-decoration: dotted;
+         text-shadow: 0in;
+         font-size: 60px;
+         color: rgb(90, 201, 252);
+        }
+  
+
+
+
+body{
         background-color: beige;
     }
     #container{
         display: grid;
-        grid-template-columns: repeat(5,auto);
+        grid-template-columns: repeat(5,1fr);
+        
         gap: 25px;
        
     }
     
     .box{
-      /* border-radius: 15px; */
+      
       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
         background-color: bisque;
        text-align: center;
-      
+       border-radius: 18px;
     }
     .box:hover{
       cursor: pointer;
-      border-radius: 15px;
+      border: 1px solid rgb(167, 167, 240);
     }
     .box>img{
         width: 100%;
+        border-radius: 18px;
          }
         button{
              margin-bottom: 30px;
@@ -49,19 +92,71 @@
            font-size: larger;
            color: rgb(246, 121, 99);
          }
+   #box{
+     text-align: right;
+   justify-content: space-around
+   }
+
+   #sort{
+     padding: 8px;
+     background-color: bisque;
+     background-color: rgb(237, 119, 119);
+    color: bisque;
+   
+   }
+   #less900:hover{
+    padding: 8px;
+    /* border: none; */
+    background-color: rgb(237, 119, 119);
+    color: bisque;
+   }
+   #less1200:hover{
+    padding: 8px;
+    /* border: none; */
+    background-color: rgb(237, 119, 119);
+    color: bisque;
+   }
+   #search{
+    padding: 8px;
+    background-color: gray;
+    background-color: rgb(237, 119, 119);
+    color: bisque;
+    
+   }
 </style>
 <body>
-  <div id="parent"> 
-    <h1>Mens Fashion</h1>
+  <div id="navBar">
+    <h3><a href="./Home.html">Home</a></h3>
+    <h3><a href="./Mens.html">Men</a></h3>
+    <h3><a href="./women.html">Women</a></h3>
+    <h3><a href="./contact.html" id="contact">Contact us</a></h3>
     <h3>
       <a href="cart.html">My cart🛒</a>
   
     </h3>
+    
+    </div>
+    
+  <div id="parent"> 
+    <h1>Mens Fashion</h1>
+  
+  </div>
+  <div id="box">
+    <select name="" id="sort">
+      <option value="none">None</option>
+      <option value="lowtohigh">Low to high</option>
+      <option value="hightolow">High to low</option>
+    </select>
+    <input placeholder="Search product" id="search" type="text"/>
+    <button id="less900">Less Than 900</button>
+    <button id="less1200">Less Than 1200</button>
+    
   </div>
  
     <div id="container">
 
     </div>
+    
 </body>
 <script>
 
@@ -321,13 +416,35 @@
     },
   ];
   
+  var filterData = [...mensData]
+  
   var cartData;
   if(localStorage.getItem('cartData')== null){
     cartData = [];
   }else{
    var cartData = JSON.parse(localStorage.getItem('cartData' ))
   }
-  mensData.forEach(function(menData){
+  
+   document.querySelector("#sort").addEventListener('change', function(){
+    var sortType =document.querySelector('#sort').value;
+    if(sortType === 'none'){
+      displayData(mensData)
+    }else{
+      filterData.sort(function(a,b){
+        if(sortType == 'lowtohigh'){
+          return a.price-b.price
+        }
+          return b.price - a.price
+        });
+        displayData(filterData)
+      }
+   });
+  
+  
+  
+  function displayData(mensData){
+    document.querySelector('#container').innerHTML = '';
+ mensData.forEach(function(menData){
   var box = document.createElement('div');
 box.setAttribute('class' , 'box')
 
@@ -345,11 +462,60 @@ cartButton.addEventListener('click' ,function(){
  cartData.push(menData);
   console.log(cartData)
   localStorage.setItem('cartData',JSON.stringify(cartData));
-})
+});
 
   box.append(img,name,price,cartButton);
   document.querySelector('#container').append(box)
   });
+
+}
+displayData(mensData)
+function less900(mensData){
+  var newData = mensData.filter(function(product){
+    if(product.price<=900){
+      return true
+    }
+    else{
+      return false;
+    }
+  })
+  return newData
+}
+function less1200(mensData){
+  var newData = mensData.filter(function(product){
+    if(product.price<=1200){
+      return true
+    }
+    else{
+      return false;
+    }
+  })
+  return newData
+}
+
+
+document.querySelector('#less900').addEventListener('click',function(){
+  var data  = less900(mensData);
+  displayData(data)
+})
+document.querySelector('#less1200').addEventListener('click',function(){
+  var data  = less1200(mensData);
+  displayData(data)
+})
+ function searchme(searchValue){
+   var data  = mensData.filter(function(product){
+     if(product.name.includes(searchValue)){
+       return true;
+     }
+     return false;
+   })
+   return data;
+ }
+document.querySelector('#search').addEventListener('change',function(){
+  var searchedValue = event.target.value;
+  var searchData = searchme(searchedValue);
+ displayData(searchData)
+})
 </script>
 </html>
 

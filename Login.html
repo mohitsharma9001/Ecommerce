@@ -1,4 +1,4 @@
-git push -u origin main<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -81,13 +81,10 @@ function loginFn() {
     event.preventDefault();
     var enteredEmail = document.querySelector('#email').value;
     var enteredPassword = document.querySelector('#password').value;
-    if(enteredEmail == '' || enteredPassword==''){
-        alert('!! Please fill required field')
-        return
-    }
-  
+    
+    
     var flag=false;
-//    console.log(registeredUsers)
+   console.log(registeredUsers)
    
     registeredUsers.forEach(function(usersData)
         {
